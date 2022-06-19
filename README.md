@@ -15,6 +15,74 @@
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
+## Marlin RAMPS x9
+
+This fork lets you control 9 steppers with a single Arduino Mega and RAMPS 1.4 using the recently added 9 axis support for Marlin in bugfix 2.1.
+
+Only DRV8825 drivers tested.
+
+A new board has been added, "BOARD_RAMPS_14_x9", its pinout is:
+| Description      |  Pin   | Location  | Description |  Pin   | Location |
+| :---             | :----: |     ---:  | :---        | :----: |     ---: |
+| __X Motor/Axis__ |        |           |__X Endstop__|        |          |
+| X_STEP_PIN       |   54   | X Socket  | X_MIN_PIN   |    3   | Endstops |
+| X_DIR_PIN        |   55   | X Socket  | X_MAX_PIN   |    2   | Endstops |
+| X_ENABLE_PIN     |   38   | X Socket  |             |        |          |
+| __Y motor/Axis__ |        |           |__Y Endstop__|        |          |
+| Y_STEP_PIN       |   60   | Y Socket  | Y_MIN_PIN   |   14   | Endstops |
+| Y_DIR_PIN        |   61   | Y Socket  | Y_MAX_PIN   |   15   | Endstops |
+| Y_ENABLE_PIN     |   56   | Y Socket  |             |        |          |
+| __Z motor/Axis__ |        |           |__Z Endstop__|        |          |
+| Z_STEP_PIN       |   46   | Z Socket  | Z_MIN_PIN   |   18   | Endstops |
+| Z_DIR_PIN        |   48   | Z Socket  | Z_MAX_PIN   |   19   | Endstops |
+| Z_ENABLE_PIN     |   62   | Z Socket  |             |        |          |
+|__A motor/I Axis__|        |           |__I Endstop__|        |          |
+| I_STEP_PIN       |   26   | E0 Socket | I_MIN_PIN   |   63   |   Aux2   |
+| I_DIR_PIN        |   28   | E0 Socket | I_MAX_PIN   |   40   |   Aux2   |
+| I_ENABLE_PIN     |   24   | E0 Socket |             |        |          |
+|__B motor/J Axis__|        |           |__J Endstop__|        |          |
+| J_STEP_PIN       |   36   | E1 Socket | J_MIN_PIN   |   42   |   Aux2   |
+| J_DIR_PIN        |   34   | E1 Socket | J_MAX_PIN   |   65   |   Aux2   |
+| J_ENABLE_PIN     |   30   | E1 Socket |             |        |          |
+|__C motor/K Axis__|        |           |__K Endstop__|        |          |
+| K_STEP_PIN       |   41   |   Aux4    | K_MIN_PIN   |   59   |   Aux2   |
+| K_DIR_PIN        |   39   |   Aux4    | K_MAX_PIN   |   64   |   Aux2   |
+| K_ENABLE_PIN     |   37   |   Aux4    |             |        |          |
+| __U motor/Axis__ |        |           |__U Endstop__|        |          |
+| U_STEP_PIN       |   35   |   Aux4    | U_MIN_PIN   |   44   |   Aux2   |
+| U_DIR_PIN        |   33   |   Aux4    | U_MAX_PIN   |   66   |   Aux2   |
+| U_ENABLE_PIN     |   31   |   Aux4    |             |        |          |
+| __V motor/Axis__ |        |           |__V Endstop__|        |          |
+| V_STEP_PIN       |   29   |   Aux4    | V_MIN_PIN   |   32   |   Aux4   |
+| V_DIR_PIN        |   27   |   Aux4    | V_MAX_PIN   |   47   |   Aux4   |
+| V_ENABLE_PIN     |   25   |   Aux4    |             |        |          |
+| __W motor/Axis__ |        |           |__W Endstop__|        |          |
+| W_STEP_PIN       |   23   |   Aux4    | W_MIN_PIN   |   45   |   Aux4   |
+| W_DIR_PIN        |   17   |   Aux4    | W_MAX_PIN   |   43   |   Aux4   |
+| W_ENABLE_PIN     |   16   |   Aux4    |             |        |          |
+
+Changes made in Configuration.h:
+- X_DRIVER_TYPE (line 170)
+- AXIS4_ROTATES (line 210)
+- DEFAULT_AXIS_STEPS_PER_UNIT (800 steps/unit, 1/4 microstepping, line 1016)
+- DEFAULT_MAX_FEEDRATE (10 unit/s, 600 RPM, line 1026)
+- DEFAULT_MAX_ACCELERATION (5 unit/s^2, line 1036)
+- USE_XMIN_PLUG (line 880)
+- X_ENABLE_ON (line 1400)
+- INVERT_X_DIR (line 1439)
+- X_HOME_DIR (line 1480)
+- X_MAX_POS X_MIN_POS (line 1497)
+- HOMING_FEEDRATE_MM_M (line 1884)
+
+Changes made in Configuration_adv.h:
+- HOMING_BUMP_MM (line 837)
+- HOMING_BUMP_DIVISOR (line 838)
+- AXIS_RELATIVE_MODE (line 1014)
+
+Besides, some adjustments were needed in:
+- /src/modules/probe.h: 9 arguments in NUM_AXIS_ARRAY
+- /src/core/types.h: Rename operators with "v" argument to "vi"
+
 ## Marlin 2.0 Bugfix Branch
 
 __Not for production use. Use with caution!__
