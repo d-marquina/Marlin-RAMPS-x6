@@ -226,8 +226,8 @@ typedef const_float_t const_celsius_float_t;
 // Helpers
 #define _RECIP(N) ((N) ? 1.0f / static_cast<float>(N) : 0.0f)
 #define _ABS(N) ((N) < 0 ? -(N) : (N))
-#define _LS(N)  (N = (T)(uint32_t(N) << v))
-#define _RS(N)  (N = (T)(uint32_t(N) >> v))
+#define _LS(N)  (N = (T)(uint32_t(N) << vi))
+#define _RS(N)  (N = (T)(uint32_t(N) >> vi))
 #define FI FORCE_INLINE
 
 // Forward declarations
@@ -376,7 +376,7 @@ struct XYval {
   FI const T&  operator[](const int n)            const { return pos[n]; }
 
   // Assignment operator overrides do the expected thing
-  FI XYval<T>& operator= (const T v)                    { set(v,    v   ); return *this; }
+  FI XYval<T>& operator= (const T vi)                    { set(vi,    vi   ); return *this; }
   FI XYval<T>& operator= (const XYZval<T>  &rs)         { set(rs.x, rs.y); return *this; }
   FI XYval<T>& operator= (const XYZEval<T> &rs)         { set(rs.x, rs.y); return *this; }
 
@@ -405,18 +405,18 @@ struct XYval {
   FI XYval<T>  operator* (const XYZEval<T> &rs)         { XYval<T> ls = *this; ls.x *= rs.x; ls.y *= rs.y; return ls; }
   FI XYval<T>  operator/ (const XYZEval<T> &rs)   const { XYval<T> ls = *this; ls.x /= rs.x; ls.y /= rs.y; return ls; }
   FI XYval<T>  operator/ (const XYZEval<T> &rs)         { XYval<T> ls = *this; ls.x /= rs.x; ls.y /= rs.y; return ls; }
-  FI XYval<T>  operator* (const float &v)         const { XYval<T> ls = *this; ls.x *= v;    ls.y *= v;    return ls; }
-  FI XYval<T>  operator* (const float &v)               { XYval<T> ls = *this; ls.x *= v;    ls.y *= v;    return ls; }
-  FI XYval<T>  operator* (const int &v)           const { XYval<T> ls = *this; ls.x *= v;    ls.y *= v;    return ls; }
-  FI XYval<T>  operator* (const int &v)                 { XYval<T> ls = *this; ls.x *= v;    ls.y *= v;    return ls; }
-  FI XYval<T>  operator/ (const float &v)         const { XYval<T> ls = *this; ls.x /= v;    ls.y /= v;    return ls; }
-  FI XYval<T>  operator/ (const float &v)               { XYval<T> ls = *this; ls.x /= v;    ls.y /= v;    return ls; }
-  FI XYval<T>  operator/ (const int &v)           const { XYval<T> ls = *this; ls.x /= v;    ls.y /= v;    return ls; }
-  FI XYval<T>  operator/ (const int &v)                 { XYval<T> ls = *this; ls.x /= v;    ls.y /= v;    return ls; }
-  FI XYval<T>  operator>>(const int &v)           const { XYval<T> ls = *this; _RS(ls.x);    _RS(ls.y);    return ls; }
-  FI XYval<T>  operator>>(const int &v)                 { XYval<T> ls = *this; _RS(ls.x);    _RS(ls.y);    return ls; }
-  FI XYval<T>  operator<<(const int &v)           const { XYval<T> ls = *this; _LS(ls.x);    _LS(ls.y);    return ls; }
-  FI XYval<T>  operator<<(const int &v)                 { XYval<T> ls = *this; _LS(ls.x);    _LS(ls.y);    return ls; }
+  FI XYval<T>  operator* (const float &vi)         const { XYval<T> ls = *this; ls.x *= vi;    ls.y *= vi;    return ls; }
+  FI XYval<T>  operator* (const float &vi)               { XYval<T> ls = *this; ls.x *= vi;    ls.y *= vi;    return ls; }
+  FI XYval<T>  operator* (const int &vi)           const { XYval<T> ls = *this; ls.x *= vi;    ls.y *= vi;    return ls; }
+  FI XYval<T>  operator* (const int &vi)                 { XYval<T> ls = *this; ls.x *= vi;    ls.y *= vi;    return ls; }
+  FI XYval<T>  operator/ (const float &vi)         const { XYval<T> ls = *this; ls.x /= vi;    ls.y /= vi;    return ls; }
+  FI XYval<T>  operator/ (const float &vi)               { XYval<T> ls = *this; ls.x /= vi;    ls.y /= vi;    return ls; }
+  FI XYval<T>  operator/ (const int &vi)           const { XYval<T> ls = *this; ls.x /= vi;    ls.y /= vi;    return ls; }
+  FI XYval<T>  operator/ (const int &vi)                 { XYval<T> ls = *this; ls.x /= vi;    ls.y /= vi;    return ls; }
+  FI XYval<T>  operator>>(const int &vi)           const { XYval<T> ls = *this; _RS(ls.x);    _RS(ls.y);    return ls; }
+  FI XYval<T>  operator>>(const int &vi)                 { XYval<T> ls = *this; _RS(ls.x);    _RS(ls.y);    return ls; }
+  FI XYval<T>  operator<<(const int &vi)           const { XYval<T> ls = *this; _LS(ls.x);    _LS(ls.y);    return ls; }
+  FI XYval<T>  operator<<(const int &vi)                 { XYval<T> ls = *this; _LS(ls.x);    _LS(ls.y);    return ls; }
   FI const XYval<T> operator-()                   const { XYval<T> o = *this; o.x = -x; o.y = -y; return o; }
   FI XYval<T>       operator-()                         { XYval<T> o = *this; o.x = -x; o.y = -y; return o; }
 
@@ -430,10 +430,10 @@ struct XYval {
   FI XYval<T>& operator+=(const XYZEval<T> &rs)         { x += rs.x; y += rs.y; return *this; }
   FI XYval<T>& operator-=(const XYZEval<T> &rs)         { x -= rs.x; y -= rs.y; return *this; }
   FI XYval<T>& operator*=(const XYZEval<T> &rs)         { x *= rs.x; y *= rs.y; return *this; }
-  FI XYval<T>& operator*=(const float &v)               { x *= v;    y *= v;    return *this; }
-  FI XYval<T>& operator*=(const int &v)                 { x *= v;    y *= v;    return *this; }
-  FI XYval<T>& operator>>=(const int &v)                { _RS(x);    _RS(y);    return *this; }
-  FI XYval<T>& operator<<=(const int &v)                { _LS(x);    _LS(y);    return *this; }
+  FI XYval<T>& operator*=(const float &vi)               { x *= vi;    y *= vi;    return *this; }
+  FI XYval<T>& operator*=(const int &vi)                 { x *= vi;    y *= vi;    return *this; }
+  FI XYval<T>& operator>>=(const int &vi)                { _RS(x);    _RS(y);    return *this; }
+  FI XYval<T>& operator<<=(const int &vi)                { _LS(x);    _LS(y);    return *this; }
 
   // Exact comparisons. For floats a "NEAR" operation may be better.
   FI bool      operator==(const XYval<T>   &rs)         { return x == rs.x && y == rs.y; }
@@ -494,10 +494,10 @@ struct XYZval {
     FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk) { x = px; y = py; z = pz; i = pi; j = pj; k = pk; }
   #endif
   #if HAS_V_AXIS
-    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pm) { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pu; }
+    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pu) { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pu; }
   #endif
   #if HAS_W_AXIS
-    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pm, const T po) { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pu; v = pv; }
+    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pu, const T pv) { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pu; v = pv; }
   #endif
 
   // Length reduced to one dimension
@@ -565,18 +565,18 @@ struct XYZval {
   FI XYZval<T>  operator* (const XYZEval<T> &rs)       { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= rs.x, ls.y *= rs.y, ls.z *= rs.z, ls.i *= rs.i, ls.j *= rs.j, ls.k *= rs.k, ls.u *= rs.u, ls.v *= rs.v, ls.w *= rs.w); return ls; }
   FI XYZval<T>  operator/ (const XYZEval<T> &rs) const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= rs.x, ls.y /= rs.y, ls.z /= rs.z, ls.i /= rs.i, ls.j /= rs.j, ls.k /= rs.k, ls.u /= rs.u, ls.v /= rs.v, ls.w /= rs.w); return ls; }
   FI XYZval<T>  operator/ (const XYZEval<T> &rs)       { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= rs.x, ls.y /= rs.y, ls.z /= rs.z, ls.i /= rs.i, ls.j /= rs.j, ls.k /= rs.k, ls.u /= rs.u, ls.v /= rs.v, ls.w /= rs.w); return ls; }
-  FI XYZval<T>  operator* (const float &v)       const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZval<T>  operator* (const float &v)             { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZval<T>  operator* (const int &v)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZval<T>  operator* (const int &v)               { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZval<T>  operator/ (const float &v)       const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZval<T>  operator/ (const float &v)             { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZval<T>  operator/ (const int &v)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZval<T>  operator/ (const int &v)               { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZval<T>  operator>>(const int &v)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(_RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
-  FI XYZval<T>  operator>>(const int &v)               { XYZval<T> ls = *this; NUM_AXIS_CODE(_RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
-  FI XYZval<T>  operator<<(const int &v)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(_LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
-  FI XYZval<T>  operator<<(const int &v)               { XYZval<T> ls = *this; NUM_AXIS_CODE(_LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
+  FI XYZval<T>  operator* (const float &vi)       const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZval<T>  operator* (const float &vi)             { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZval<T>  operator* (const int &vi)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZval<T>  operator* (const int &vi)               { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZval<T>  operator/ (const float &vi)       const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZval<T>  operator/ (const float &vi)             { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZval<T>  operator/ (const int &vi)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZval<T>  operator/ (const int &vi)               { XYZval<T> ls = *this; NUM_AXIS_CODE(ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZval<T>  operator>>(const int &vi)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(_RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
+  FI XYZval<T>  operator>>(const int &vi)               { XYZval<T> ls = *this; NUM_AXIS_CODE(_RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
+  FI XYZval<T>  operator<<(const int &vi)         const { XYZval<T> ls = *this; NUM_AXIS_CODE(_LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
+  FI XYZval<T>  operator<<(const int &vi)               { XYZval<T> ls = *this; NUM_AXIS_CODE(_LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
   FI const XYZval<T> operator-()                 const { XYZval<T> o = *this; NUM_AXIS_CODE(o.x = -x, o.y = -y, o.z = -z, o.i = -i, o.j = -j, o.k = -k, o.u = -u, o.v = -v, o.w = -w); return o; }
   FI XYZval<T>       operator-()                       { XYZval<T> o = *this; NUM_AXIS_CODE(o.x = -x, o.y = -y, o.z = -z, o.i = -i, o.j = -j, o.k = -k, o.u = -u, o.v = -v, o.w = -w); return o; }
 
@@ -593,10 +593,10 @@ struct XYZval {
   FI XYZval<T>& operator-=(const XYZEval<T> &rs)       { NUM_AXIS_CODE(x -= rs.x, y -= rs.y, z -= rs.z, i -= rs.i, j -= rs.j, k -= rs.k, u -= rs.u, v -= rs.v, w -= rs.w); return *this; }
   FI XYZval<T>& operator*=(const XYZEval<T> &rs)       { NUM_AXIS_CODE(x *= rs.x, y *= rs.y, z *= rs.z, i *= rs.i, j *= rs.j, k *= rs.k, u *= rs.u, v *= rs.v, w *= rs.w); return *this; }
   FI XYZval<T>& operator/=(const XYZEval<T> &rs)       { NUM_AXIS_CODE(x /= rs.x, y /= rs.y, z /= rs.z, i /= rs.i, j /= rs.j, k /= rs.k, u /= rs.u, v /= rs.v, w /= rs.w); return *this; }
-  FI XYZval<T>& operator*=(const float &v)             { NUM_AXIS_CODE(x *= v,    y *= v,    z *= v,    i *= v,    j *= v,    k *= v,    u *= v,    v *= v,    w *= v);    return *this; }
-  FI XYZval<T>& operator*=(const int &v)               { NUM_AXIS_CODE(x *= v,    y *= v,    z *= v,    i *= v,    j *= v,    k *= v,    u *= v,    v *= v,    w *= v);    return *this; }
-  FI XYZval<T>& operator>>=(const int &v)              { NUM_AXIS_CODE(_RS(x),    _RS(y),    _RS(z),    _RS(i),    _RS(j),    _RS(k),    _RS(u),    _RS(v),    _RS(w));    return *this; }
-  FI XYZval<T>& operator<<=(const int &v)              { NUM_AXIS_CODE(_LS(x),    _LS(y),    _LS(z),    _LS(i),    _LS(j),    _LS(k),    _LS(u),    _LS(v),    _LS(w));    return *this; }
+  FI XYZval<T>& operator*=(const float &vi)             { NUM_AXIS_CODE(x *= vi,    y *= vi,    z *= vi,    i *= vi,    j *= vi,    k *= vi,    u *= vi,    v *= vi,    w *= vi);    return *this; }
+  FI XYZval<T>& operator*=(const int &vi)               { NUM_AXIS_CODE(x *= vi,    y *= vi,    z *= vi,    i *= vi,    j *= vi,    k *= vi,    u *= vi,    v *= vi,    w *= vi);    return *this; }
+  FI XYZval<T>& operator>>=(const int &vi)              { NUM_AXIS_CODE(_RS(x),    _RS(y),    _RS(z),    _RS(i),    _RS(j),    _RS(k),    _RS(u),    _RS(v),    _RS(w));    return *this; }
+  FI XYZval<T>& operator<<=(const int &vi)              { NUM_AXIS_CODE(_LS(x),    _LS(y),    _LS(z),    _LS(i),    _LS(j),    _LS(k),    _LS(u),    _LS(v),    _LS(w));    return *this; }
 
   // Exact comparisons. For floats a "NEAR" operation may be better.
   FI bool       operator==(const XYZEval<T> &rs)       { return true NUM_AXIS_GANG(&& x == rs.x, && y == rs.y, && z == rs.z, && i == rs.i, && j == rs.j, && k == rs.k, && u == rs.u, && v == rs.v, && w == rs.w); }
@@ -634,10 +634,10 @@ struct XYZEval {
     FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk)                         { x = px; y = py; z = pz; i = pi; j = pj; k = pk; }
   #endif
   #if HAS_V_AXIS
-    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pm)             { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pu; }
+    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pu)             { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pu; }
   #endif
   #if HAS_W_AXIS
-    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pm, const T po) { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pm; v = pv; }
+    FI void set(const T px, const T py, const T pz, const T pi, const T pj, const T pk, const T pu, const T pv) { x = px; y = py; z = pz; i = pi; j = pj; k = pk; u = pu; v = pv; }
   #endif
 
   // Setters taking struct types and arrays
@@ -688,7 +688,7 @@ struct XYZEval {
   FI const T&    operator[](const int n)            const { return pos[n]; }
 
   // Assignment operator overrides do the expected thing
-  FI XYZEval<T>& operator= (const T v)                    { set(LIST_N_1(NUM_AXES, v)); return *this; }
+  FI XYZEval<T>& operator= (const T vi)                    { set(LIST_N_1(NUM_AXES, vi)); return *this; }
   FI XYZEval<T>& operator= (const XYval<T>   &rs)         { set(rs.x, rs.y); return *this; }
   FI XYZEval<T>& operator= (const XYZval<T>  &rs)         { set(NUM_AXIS_ELEM(rs)); return *this; }
 
@@ -717,18 +717,18 @@ struct XYZEval {
   FI XYZEval<T>  operator* (const XYZEval<T>  &rs)        { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= rs.e, ls.x *= rs.x, ls.y *= rs.y, ls.z *= rs.z, ls.i *= rs.i, ls.j *= rs.j, ls.k *= rs.k, ls.u *= rs.u, ls.v *= rs.v, ls.w *= rs.w); return ls; }
   FI XYZEval<T>  operator/ (const XYZEval<T>  &rs)  const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= rs.e, ls.x /= rs.x, ls.y /= rs.y, ls.z /= rs.z, ls.i /= rs.i, ls.j /= rs.j, ls.k /= rs.k, ls.u /= rs.u, ls.v /= rs.v, ls.w /= rs.w); return ls; }
   FI XYZEval<T>  operator/ (const XYZEval<T>  &rs)        { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= rs.e, ls.x /= rs.x, ls.y /= rs.y, ls.z /= rs.z, ls.i /= rs.i, ls.j /= rs.j, ls.k /= rs.k, ls.u /= rs.u, ls.v /= rs.v, ls.w /= rs.w); return ls; }
-  FI XYZEval<T>  operator* (const float &v)         const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= v,    ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZEval<T>  operator* (const float &v)               { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= v,    ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZEval<T>  operator* (const int &v)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= v,    ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZEval<T>  operator* (const int &v)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= v,    ls.x *= v,    ls.y *= v,    ls.z *= v,    ls.i *= v,    ls.j *= v,    ls.k *= v,    ls.u *= v,    ls.v *= v,    ls.w *= v   ); return ls; }
-  FI XYZEval<T>  operator/ (const float &v)         const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= v,    ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZEval<T>  operator/ (const float &v)               { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= v,    ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZEval<T>  operator/ (const int &v)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= v,    ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZEval<T>  operator/ (const int &v)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= v,    ls.x /= v,    ls.y /= v,    ls.z /= v,    ls.i /= v,    ls.j /= v,    ls.k /= v,    ls.u /= v,    ls.v /= v,    ls.w /= v   ); return ls; }
-  FI XYZEval<T>  operator>>(const int &v)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_RS(ls.e),    _RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
-  FI XYZEval<T>  operator>>(const int &v)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_RS(ls.e),    _RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
-  FI XYZEval<T>  operator<<(const int &v)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_LS(ls.e),    _LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
-  FI XYZEval<T>  operator<<(const int &v)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_LS(ls.e),    _LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
+  FI XYZEval<T>  operator* (const float &vi)         const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= vi,    ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZEval<T>  operator* (const float &vi)               { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= vi,    ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZEval<T>  operator* (const int &vi)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= vi,    ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZEval<T>  operator* (const int &vi)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e *= vi,    ls.x *= vi,    ls.y *= vi,    ls.z *= vi,    ls.i *= vi,    ls.j *= vi,    ls.k *= vi,    ls.u *= vi,    ls.v *= vi,    ls.w *= vi   ); return ls; }
+  FI XYZEval<T>  operator/ (const float &vi)         const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= vi,    ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZEval<T>  operator/ (const float &vi)               { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= vi,    ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZEval<T>  operator/ (const int &vi)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= vi,    ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZEval<T>  operator/ (const int &vi)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(ls.e /= vi,    ls.x /= vi,    ls.y /= vi,    ls.z /= vi,    ls.i /= vi,    ls.j /= vi,    ls.k /= vi,    ls.u /= vi,    ls.v /= vi,    ls.w /= vi   ); return ls; }
+  FI XYZEval<T>  operator>>(const int &vi)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_RS(ls.e),    _RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
+  FI XYZEval<T>  operator>>(const int &vi)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_RS(ls.e),    _RS(ls.x),    _RS(ls.y),    _RS(ls.z),    _RS(ls.i),    _RS(ls.j),    _RS(ls.k),    _RS(ls.u),    _RS(ls.v),    _RS(ls.w)   ); return ls; }
+  FI XYZEval<T>  operator<<(const int &vi)           const { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_LS(ls.e),    _LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
+  FI XYZEval<T>  operator<<(const int &vi)                 { XYZEval<T> ls = *this; LOGICAL_AXIS_CODE(_LS(ls.e),    _LS(ls.x),    _LS(ls.y),    _LS(ls.z),    _LS(ls.i),    _LS(ls.j),    _LS(ls.k),    _LS(ls.u),    _LS(ls.v),    _LS(ls.w)   ); return ls; }
   FI const XYZEval<T> operator-()                   const { return LOGICAL_AXIS_ARRAY(-e, -x, -y, -z, -i, -j, -k, -u, -v, -w); }
   FI       XYZEval<T> operator-()                         { return LOGICAL_AXIS_ARRAY(-e, -x, -y, -z, -i, -j, -k, -u, -v, -w); }
 
@@ -745,9 +745,9 @@ struct XYZEval {
   FI XYZEval<T>& operator-=(const XYZEval<T> &rs)         { LOGICAL_AXIS_CODE(e -= rs.e, x -= rs.x, y -= rs.y, z -= rs.z, i -= rs.i, j -= rs.j, k -= rs.k, u -= rs.u, v -= rs.v, w -= rs.w); return *this; }
   FI XYZEval<T>& operator*=(const XYZEval<T> &rs)         { LOGICAL_AXIS_CODE(e *= rs.e, x *= rs.x, y *= rs.y, z *= rs.z, i *= rs.i, j *= rs.j, k *= rs.k, u *= rs.u, v *= rs.v, w *= rs.w); return *this; }
   FI XYZEval<T>& operator/=(const XYZEval<T> &rs)         { LOGICAL_AXIS_CODE(e /= rs.e, x /= rs.x, y /= rs.y, z /= rs.z, i /= rs.i, j /= rs.j, k /= rs.k, u /= rs.u, v /= rs.v, w /= rs.w); return *this; }
-  FI XYZEval<T>& operator*=(const T &v)                   { LOGICAL_AXIS_CODE(e *= v,    x *= v,    y *= v,    z *= v,    i *= v,    j *= v,    k *= v,    u *= v,    v *= v,    w *= v);    return *this; }
-  FI XYZEval<T>& operator>>=(const int &v)                { LOGICAL_AXIS_CODE(_RS(e),    _RS(x),    _RS(y),    _RS(z),    _RS(i),    _RS(j),    _RS(k),    _RS(u),    _RS(v),    _RS(w));    return *this; }
-  FI XYZEval<T>& operator<<=(const int &v)                { LOGICAL_AXIS_CODE(_LS(e),    _LS(x),    _LS(y),    _LS(z),    _LS(i),    _LS(j),    _LS(k),    _LS(u),    _LS(v),    _LS(w));    return *this; }
+  FI XYZEval<T>& operator*=(const T &vi)                   { LOGICAL_AXIS_CODE(e *= vi,    x *= vi,    y *= vi,    z *= vi,    i *= vi,    j *= vi,    k *= vi,    u *= vi,    v *= vi,    w *= vi);    return *this; }
+  FI XYZEval<T>& operator>>=(const int &vi)                { LOGICAL_AXIS_CODE(_RS(e),    _RS(x),    _RS(y),    _RS(z),    _RS(i),    _RS(j),    _RS(k),    _RS(u),    _RS(v),    _RS(w));    return *this; }
+  FI XYZEval<T>& operator<<=(const int &vi)                { LOGICAL_AXIS_CODE(_LS(e),    _LS(x),    _LS(y),    _LS(z),    _LS(i),    _LS(j),    _LS(k),    _LS(u),    _LS(v),    _LS(w));    return *this; }
 
   // Exact comparisons. For floats a "NEAR" operation may be better.
   FI bool        operator==(const XYZval<T>  &rs)         { return true NUM_AXIS_GANG(&& x == rs.x, && y == rs.y, && z == rs.z, && i == rs.i, && j == rs.j, && k == rs.k, && u == rs.u, && v == rs.v, && w == rs.w); }

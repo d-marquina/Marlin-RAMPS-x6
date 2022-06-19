@@ -117,6 +117,7 @@
 #define BOARD_LONGER3D_LKx_PRO        1161  // Longer LKx PRO / Alfawise Uxx Pro (PRO version)
 #define BOARD_ZRIB_V53                1162  // Zonestar zrib V5.3 (Chinese RAMPS replica)
 #define BOARD_PXMALION_CORE_I3        1163  // Pxmalion Core I3
+#define BOARD_RAMPS_14_x9             1164  // RAMPS 14 with support for 6 steppers
 
 //
 // RAMBo and derivatives
