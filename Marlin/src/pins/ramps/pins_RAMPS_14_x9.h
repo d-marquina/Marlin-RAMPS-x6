@@ -81,71 +81,71 @@
 //
 // Limit Switches
 //
-#define X_MIN_PIN                              3
-#define X_MAX_PIN                              2
+#define X_MIN_PIN                              3 // Endstops
+#define X_MAX_PIN                             63 // Aux2
 
-#define Y_MIN_PIN                             14
-#define Y_MAX_PIN                             15
+#define Y_MIN_PIN                             14 // Endstops
+#define Y_MAX_PIN                             40 // Aux2
 
-#define Z_MIN_PIN                             18
-#define Z_MAX_PIN                             19
+#define Z_MIN_PIN                             18 // Endstops
+#define Z_MAX_PIN                             19 // Endstops
 
-#define I_MIN_PIN                             63 // Aux2
-#define I_MAX_PIN                             40
+#define I_MIN_PIN                              2 // Endstops
+#define I_MAX_PIN                             42 // Aux2
 
-#define J_MIN_PIN                             42 // Aux2
-#define J_MAX_PIN                             65
+#define J_MIN_PIN                             15 // Endstops
+#define J_MAX_PIN                             65 // Aux2
 
 #define K_MIN_PIN                             59 // Aux2
-#define K_MAX_PIN                             64
+#define K_MAX_PIN                             64 // Aux2
 
 #define U_MIN_PIN                             44 // Aux2
-#define U_MAX_PIN                             66
+#define U_MAX_PIN                             66 // Aux2
 
 #define V_MIN_PIN                             32 // Aux4
-#define V_MAX_PIN                             47
+#define V_MAX_PIN                             47 // Aux4
 
 #define W_MIN_PIN                             45 // Aux4
-#define W_MAX_PIN                             43
+#define W_MAX_PIN                             43 // Aux4
 
 //
 // Steppers
 //
-#define X_STEP_PIN                            54
-#define X_DIR_PIN                             55
-#define X_ENABLE_PIN                          38
+#define X_STEP_PIN                            54 // X Socket
+#define X_DIR_PIN                             55 // X Socket
+#define X_ENABLE_PIN                          38 // X Socket
 
-#define Y_STEP_PIN                            60
-#define Y_DIR_PIN                             61
-#define Y_ENABLE_PIN                          56
+#define Y_STEP_PIN                            60 // Y Socket
+#define Y_DIR_PIN                             61 // Y Socket
+#define Y_ENABLE_PIN                          56 // Y Socket
 
-#define Z_STEP_PIN                            46
-#define Z_DIR_PIN                             48
-#define Z_ENABLE_PIN                          62
+#define Z_STEP_PIN                            46 // Z Socket
+#define Z_DIR_PIN                             48 // Z Socket
+#define Z_ENABLE_PIN                          62 // Z Socket
 
-#define I_STEP_PIN                            26
-#define I_DIR_PIN                             28
-#define I_ENABLE_PIN                          24
+#define I_STEP_PIN                            26 // E0 Socket
+#define I_DIR_PIN                             28 // E0 Socket
+#define I_ENABLE_PIN                          24 // E0 Socket
 
-#define J_STEP_PIN                            36
-#define J_DIR_PIN                             34
-#define J_ENABLE_PIN                          30
+#define J_STEP_PIN                            36 // E1 Socket
+#define J_DIR_PIN                             34 // E1 Socket
+#define J_ENABLE_PIN                          30 // E1 Socket
 
 #define K_STEP_PIN                            41 // Aux4
-#define K_DIR_PIN                             39
-#define K_ENABLE_PIN                          37
+#define K_DIR_PIN                             39 // Aux4
+#define K_ENABLE_PIN                          37 // Aux4
 
 #define U_STEP_PIN                            35 // Aux4
-#define U_DIR_PIN                             33
-#define U_ENABLE_PIN                          31
+#define U_DIR_PIN                             33 // Aux4
+#define U_ENABLE_PIN                          31 // Aux4
 
 #define V_STEP_PIN                            29 // Aux4
-#define V_DIR_PIN                             27
-#define V_ENABLE_PIN                          25
+#define V_DIR_PIN                             27 // Aux4
+#define V_ENABLE_PIN                          25 // Aux4
 
 #define W_STEP_PIN                            23 // Aux4
-#define W_DIR_PIN                             17
-#define W_ENABLE_PIN                          16
+#define W_DIR_PIN                             17 // Aux4
+#define W_ENABLE_PIN                          16 // Aux4
 
 //
 // Temperature Sensors
