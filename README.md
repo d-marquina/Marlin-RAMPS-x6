@@ -23,25 +23,25 @@ Only DRV8825 drivers tested.
 
 A new board has been added, "BOARD_RAMPS_14_x9", its pinout is:
 | Description      |  Pin   | Location  | Description |  Pin   | Location |
-| :---             | :----: |     ---:  | :---        | :----: |     ---: |
+| :---             | :----: |  :----:   | :---        | :----: |  :----:  |
 | __X Motor/Axis__ |        |           |__X Endstop__|        |          |
 | X_STEP_PIN       |   54   | X Socket  | X_MIN_PIN   |    3   | Endstops |
-| X_DIR_PIN        |   55   | X Socket  | X_MAX_PIN   |    2   | Endstops |
+| X_DIR_PIN        |   55   | X Socket  | X_MAX_PIN   |   63   |   Aux2   |
 | X_ENABLE_PIN     |   38   | X Socket  |             |        |          |
 | __Y motor/Axis__ |        |           |__Y Endstop__|        |          |
 | Y_STEP_PIN       |   60   | Y Socket  | Y_MIN_PIN   |   14   | Endstops |
-| Y_DIR_PIN        |   61   | Y Socket  | Y_MAX_PIN   |   15   | Endstops |
+| Y_DIR_PIN        |   61   | Y Socket  | Y_MAX_PIN   |   40   |   Aux2   |
 | Y_ENABLE_PIN     |   56   | Y Socket  |             |        |          |
 | __Z motor/Axis__ |        |           |__Z Endstop__|        |          |
 | Z_STEP_PIN       |   46   | Z Socket  | Z_MIN_PIN   |   18   | Endstops |
 | Z_DIR_PIN        |   48   | Z Socket  | Z_MAX_PIN   |   19   | Endstops |
 | Z_ENABLE_PIN     |   62   | Z Socket  |             |        |          |
 |__A motor/I Axis__|        |           |__I Endstop__|        |          |
-| I_STEP_PIN       |   26   | E0 Socket | I_MIN_PIN   |   63   |   Aux2   |
-| I_DIR_PIN        |   28   | E0 Socket | I_MAX_PIN   |   40   |   Aux2   |
+| I_STEP_PIN       |   26   | E0 Socket | I_MIN_PIN   |    2   | Endstops |
+| I_DIR_PIN        |   28   | E0 Socket | I_MAX_PIN   |   42   |   Aux2   |
 | I_ENABLE_PIN     |   24   | E0 Socket |             |        |          |
 |__B motor/J Axis__|        |           |__J Endstop__|        |          |
-| J_STEP_PIN       |   36   | E1 Socket | J_MIN_PIN   |   42   |   Aux2   |
+| J_STEP_PIN       |   36   | E1 Socket | J_MIN_PIN   |   15   | Endstops |
 | J_DIR_PIN        |   34   | E1 Socket | J_MAX_PIN   |   65   |   Aux2   |
 | J_ENABLE_PIN     |   30   | E1 Socket |             |        |          |
 |__C motor/K Axis__|        |           |__K Endstop__|        |          |
